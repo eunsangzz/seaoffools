@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ShipBody
+    uniqueID: 1978911899
+    locked: 0
+  - name: Cannon
+    uniqueID: 4200210537
+    locked: 0
+  - name: Player
+    uniqueID: 802267475
+    locked: 0
+  - name: New Layer 4
+    uniqueID: 600382267
+    locked: 0

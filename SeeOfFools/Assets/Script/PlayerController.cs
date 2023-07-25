@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    GameObject manager;
     Vector3 pos;
     public float speed = 5;
 
@@ -14,23 +15,57 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (GameManager.Instance.isCannon1 == false)
         {
-            pos.x -= speed * Time.deltaTime;
+            if (Input.GetKey(KeyCode.A))
+            {
+                pos.x -= speed * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                pos.x += speed * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.W))
+            {
+                pos.y += speed * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                pos.y -= speed * Time.deltaTime;
+            }
+            transform.position = pos;
         }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            pos.x += speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            pos.y += speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            pos.y -= speed * Time.deltaTime;
-        }
+    }
 
-        transform.position = pos;
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Cannon1")
+        {
+            if(Input.GetKey(KeyCode.E))
+            {
+                GameManager.Instance.isCannon1 = true;
+            }
+        }
+        if (collision.gameObject.name == "Cannon2")
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                GameManager.Instance.isCannon2 = true;
+            }
+        }
+        if (collision.gameObject.name == "Cannon3")
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                GameManager.Instance.isCannon3 = true;
+            }
+        }
+        if (collision.gameObject.name == "Cannon4")
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                GameManager.Instance.isCannon4 = true;
+            }
+        }
     }
 }
