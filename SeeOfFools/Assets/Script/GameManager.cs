@@ -34,75 +34,32 @@ public class GameManager : MonoBehaviour
     public bool isCannon3;
     public bool isCannon4;
 
-    public bool isReadyCannon;
-
-    public GameObject[] Cannon;
+    public float shipHp;
 
     void Start()
     {
+        shipHp = 100f;
         isCannon1 = false;
         isCannon2 = false;
         isCannon3 = false;
         isCannon4 = false;
-        Cannon[0].GetComponent<Move>().enabled = false;
-        Cannon[1].GetComponent<Move>().enabled = false;
-        Cannon[2].GetComponent<Move>().enabled = false;
-        Cannon[3].GetComponent<Move>().enabled = false;
     }
 
     void Update()
     {
-        ActiveCannon();
         InactiveCannon();
     }
 
-    void ActiveCannon()
-    {
-        if (isCannon1 == true)
-        {
-            Cannon[0].GetComponent<Move>().enabled = true;
-        }
-        else
-        {
-            Cannon[0].GetComponent<Move>().enabled = false;
-        }
-        if (isCannon2 == true)
-        {
-            Cannon[1].GetComponent<Move>().enabled = true;
-        }
-        else
-        {
-            Cannon[1].GetComponent<Move>().enabled = false;
-        }
-
-        if (isCannon3 == true)
-        {
-            Cannon[2].GetComponent<Move>().enabled = true;
-        }
-        else
-        {
-            Cannon[2].GetComponent<Move>().enabled = false;
-        }
-
-        if (isCannon4 == true)
-        {
-            Cannon[3].GetComponent<Move>().enabled = true;
-        }
-        else
-        {
-            Cannon[3].GetComponent<Move>().enabled = false;
-        }
-    }
 
     void InactiveCannon()
     {
         if (Input.GetMouseButtonDown(1))
         {
             Debug.Log("Press");
-            isCannon1 = false;
-            isCannon2 = false;
-            isCannon3 = false;
-            isCannon4 = false;
+            GameManager.Instance.isCannon1 = false;
+            GameManager.Instance.isCannon2 = false;
+            GameManager.Instance.isCannon3 = false;
+            GameManager.Instance.isCannon4 = false;
         }
     }
 }
