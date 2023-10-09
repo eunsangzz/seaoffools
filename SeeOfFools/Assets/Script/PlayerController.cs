@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        if (GameManager.Instance.isCannon1 == false)
+        if (GameManager.Instance.isCannon1 == false && GameManager.Instance.isCannon2 == false
+            && GameManager.Instance.isCannon3 == false && GameManager.Instance.isCannon4 == false)
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.E))
             {
+                Debug.Log("Do");
                 GameManager.Instance.isCannon1 = true;
             }
         }

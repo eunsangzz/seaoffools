@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,7 +6,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if(null == instance)
+        if (null == instance)
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
@@ -23,7 +21,7 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if(null==instance)
+            if (null == instance)
             {
                 return null;
             }
@@ -35,6 +33,8 @@ public class GameManager : MonoBehaviour
     public bool isCannon2;
     public bool isCannon3;
     public bool isCannon4;
+
+    public bool isReadyCannon;
 
     public GameObject[] Cannon;
 
@@ -69,9 +69,9 @@ public class GameManager : MonoBehaviour
         if (isCannon2 == true)
         {
             Cannon[1].GetComponent<Move>().enabled = true;
-        }          
-        else       
-        {          
+        }
+        else
+        {
             Cannon[1].GetComponent<Move>().enabled = false;
         }
 
@@ -96,8 +96,9 @@ public class GameManager : MonoBehaviour
 
     void InactiveCannon()
     {
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
+            Debug.Log("Press");
             isCannon1 = false;
             isCannon2 = false;
             isCannon3 = false;
@@ -105,3 +106,4 @@ public class GameManager : MonoBehaviour
         }
     }
 }
+
