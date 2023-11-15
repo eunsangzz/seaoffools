@@ -1416,8 +1416,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy:
-  - {fileID: 5071090430057035751, guid: 9e38efc5f5306b241b9ef11e370a074e, type: 3}
-  - {fileID: 6488400486935263566, guid: ed50ce60a39ef5141857e7dba4536e5f, type: 3}
+  - {fileID: 7077604869691633178, guid: 44262d49615af524a895b147ef894661, type: 3}
+  - {fileID: 8816386321556002313, guid: 02432f7201551a54b8570490d5377d6a, type: 3}
   - {fileID: 22956457908756623, guid: 09c3864dcf0a4ec418ce65f6c267b74e, type: 3}
 --- !u!4 &1572480987
 Transform:

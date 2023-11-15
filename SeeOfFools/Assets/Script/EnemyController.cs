@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 { 
-    public enum Type { Elite, Midium, Small }
-    public Type enemyType;
-
-    public int maxHealth;
-    public int curHealth;
-
-    public bool isDead = false;
-
     public Animator anim;
+    public EnemyType type;
+    public Stat stat;
 
     void Awake()
     {
+        stat = new Stat();
         anim = GetComponent<Animator>();
+        stat = stat.SetEnemyStat(type);
     }
 
     void Start()
@@ -26,10 +22,6 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if(curHealth <= 0 || isDead == true)
-        {
-            StopCoroutine(Behavior());
-        }
     }
 
     IEnumerator Behavior()
@@ -37,8 +29,6 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(Attack());
 
         yield return new WaitForSeconds(17f);
-
-        isDead = true;
     }
 
     IEnumerator Attack()
@@ -46,5 +36,13 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSeconds(8f);
 
+    }
+    
+    void Died()
+    {
+        if(stat.curhp <= 0)
+        {
+            Destroy(gameObject); 
+        }
     }
 }
