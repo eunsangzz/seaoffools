@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public bool isCannon3;
     public bool isCannon4;
     public bool isBattle;
+    public bool isMove;
 
     public float shipHp;
 
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         isCannon3 = false;
         isCannon4 = false;
         isBattle = false;
+        isMove = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
     }
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
     public void battleStart()
     {
         isBattle = true;
+        isMove = true;
     }
 }
 
