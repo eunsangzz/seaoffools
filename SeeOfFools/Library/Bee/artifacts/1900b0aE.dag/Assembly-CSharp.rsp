@@ -374,6 +374,7 @@
 "Assets/Script/MonsterSpawner.cs"
 "Assets/Script/Move.cs"
 "Assets/Script/PlayerController.cs"
+"Assets/Script/ShipController.cs"
 "Assets/Script/Stat.cs"
 -langversion:9.0
 

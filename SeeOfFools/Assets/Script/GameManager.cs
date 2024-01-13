@@ -29,10 +29,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
     public bool isCannon1;
     public bool isCannon2;
     public bool isCannon3;
     public bool isCannon4;
+    public bool isBattle;
 
     public float shipHp;
 
@@ -43,6 +46,9 @@ public class GameManager : MonoBehaviour
         isCannon2 = false;
         isCannon3 = false;
         isCannon4 = false;
+        isBattle = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     void Update()
@@ -61,6 +67,11 @@ public class GameManager : MonoBehaviour
             GameManager.Instance.isCannon3 = false;
             GameManager.Instance.isCannon4 = false;
         }
+    }
+
+    public void battleStart()
+    {
+        isBattle = true;
     }
 }
 

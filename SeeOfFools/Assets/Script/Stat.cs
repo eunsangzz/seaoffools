@@ -31,10 +31,10 @@ public class Stat
         switch(type)
         {
             case EnemyType.Elite:
-                stat = new Stat(type, "Elite", 3, 10);
+                stat = new Stat(type, "Elite", 3, 5);
                 break;
             case EnemyType.Midium:
-                stat = new Stat(type, "Midium", 2, 5);
+                stat = new Stat(type, "Midium", 2, 3);
                 break;
             case EnemyType.Small:
                 stat = new Stat(type, "Small", 1, 1);

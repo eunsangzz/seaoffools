@@ -29,12 +29,19 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(Attack());
 
         yield return new WaitForSeconds(17f);
+
+        Destroy(this.gameObject);
     }
 
-    IEnumerator Attack()
+    IEnumerator Attack() //8초에 한번씩 공격 2번공격시 사라짐
     {
+        //TODO 공격애니메이션
 
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(2f);
+
+        GameManager.Instance.shipHp -= stat.Damage;
+
+        yield return new WaitForSeconds(5f);
 
     }
     

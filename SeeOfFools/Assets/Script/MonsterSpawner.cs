@@ -5,13 +5,35 @@ using UnityEngine;
 public class MonsterSpawner : MonoBehaviour
 {
     public GameObject[] enemy;
+    private float time;
     Vector3 randPos;
     int enemyType;
+    bool isStart = false;
 
 
     void Start()
     {
-        StartCoroutine(Spawn());
+ 
+    }
+
+    void Update()
+    {
+        if(GameManager.Instance.isBattle == true)
+        {
+            StartCoroutine(Spawn());
+            isStart = true;
+            GameManager.Instance.isBattle = false;
+        }
+
+        if (isStart == true)
+        {
+            time += Time.deltaTime;
+        }
+
+        if(time >= 180f)
+        {
+            StopAllCoroutines();
+        }
     }
 
     IEnumerator Spawn()
@@ -19,9 +41,9 @@ public class MonsterSpawner : MonoBehaviour
         int randY = Random.Range(0, 2);
         int randEnemy = Random.Range(0, 10);
 
-        if (randEnemy >= 5) 
+        if (randEnemy >= 6) 
         { enemyType = 0; }
-        if (randEnemy <= 8 && randEnemy >= 6)
+        if (randEnemy <= 8 && randEnemy >= 7)
         { enemyType = 1; }
         if (randEnemy >= 9)
         { enemyType = 2; }
