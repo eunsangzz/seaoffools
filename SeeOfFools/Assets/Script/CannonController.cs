@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CannonController : MonoBehaviour
@@ -64,11 +62,21 @@ public class CannonController : MonoBehaviour
         if (GameManager.Instance.isCannon1 == true || GameManager.Instance.isCannon2 == true ||
             GameManager.Instance.isCannon3 == true || GameManager.Instance.isCannon4 == true)
         {
-            if(Input.GetMouseButtonDown(0))
+            Vector3 mouPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
             {
-                Vector3 mouPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
-                Debug.Log(mouPos);
+                Debug.Log("1");
+                GameObject touch = hit.transform.gameObject;
+                if (touch.name == "Small Monster(Clone)" || touch.name == "Midium Monster(Clone)" || touch.name == "Elite Monster(Clone)")
+                {
+                    Debug.Log(touch.GetComponent<EnemyController>().stat.curhp);
+                    touch.GetComponent<EnemyController>().stat.curhp -= 1;
+                    Debug.Log(touch.GetComponent<EnemyController>().stat.curhp);
+                }
             }
+
         }
     }
 }

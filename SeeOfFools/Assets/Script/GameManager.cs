@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Press");
             GameManager.Instance.isCannon1 = false;
             GameManager.Instance.isCannon2 = false;
             GameManager.Instance.isCannon3 = false;
@@ -76,5 +75,7 @@ public class GameManager : MonoBehaviour
         isBattle = true;
         isMove = true;
     }
+
+
 }
 
