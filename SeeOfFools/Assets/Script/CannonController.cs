@@ -1,8 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class CannonController : MonoBehaviour
 {
     public GameObject[] Cannon;
+    public GameObject[] bulletPos;
+    public GameObject bulletPre;
+    public float reroadTime;
+
+    private float shotTime;
+
+    private bool shoot = false;
 
     void Start()
     {
@@ -16,7 +24,6 @@ public class CannonController : MonoBehaviour
     void Update()
     {
         ActiveCannon();
-        AttackCannon();
     }
 
     void ActiveCannon()
@@ -24,6 +31,7 @@ public class CannonController : MonoBehaviour
         if (GameManager.Instance.isCannon1 == true)
         {
             Cannon[0].GetComponent<Move>().enabled = true;
+            FireCannon(0);
         }
         else
         {
@@ -32,6 +40,7 @@ public class CannonController : MonoBehaviour
         if (GameManager.Instance.isCannon2 == true)
         {
             Cannon[1].GetComponent<Move>().enabled = true;
+            FireCannon(1);
         }
         else
         {
@@ -41,6 +50,7 @@ public class CannonController : MonoBehaviour
         if (GameManager.Instance.isCannon3 == true)
         {
             Cannon[2].GetComponent<Move>().enabled = true;
+            FireCannon(2);
         }
         else
         {
@@ -50,6 +60,7 @@ public class CannonController : MonoBehaviour
         if (GameManager.Instance.isCannon4 == true)
         {
             Cannon[3].GetComponent<Move>().enabled = true;
+            FireCannon(3);
         }
         else
         {
@@ -57,26 +68,23 @@ public class CannonController : MonoBehaviour
         }
     }
 
-    void AttackCannon()
+
+
+    void FireCannon(int barrelNum)
     {
-        if (GameManager.Instance.isCannon1 == true || GameManager.Instance.isCannon2 == true ||
-            GameManager.Instance.isCannon3 == true || GameManager.Instance.isCannon4 == true)
+        if (Input.GetMouseButtonDown(0) && shoot == false)
         {
             Vector3 mouPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                Debug.Log("1");
-                GameObject touch = hit.transform.gameObject;
-                if (touch.name == "Small Monster(Clone)" || touch.name == "Midium Monster(Clone)" || touch.name == "Elite Monster(Clone)")
-                {
-                    Debug.Log(touch.GetComponent<EnemyController>().stat.curhp);
-                    touch.GetComponent<EnemyController>().stat.curhp -= 1;
-                    Debug.Log(touch.GetComponent<EnemyController>().stat.curhp);
-                }
-            }
-
+            GameObject bullet = Instantiate(bulletPre, bulletPos[barrelNum].transform.position, Quaternion.identity);
+            shoot = true;
+            StartCoroutine(ShootDelay());
         }
+    }
+
+    IEnumerator ShootDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        shoot = false;
     }
 }

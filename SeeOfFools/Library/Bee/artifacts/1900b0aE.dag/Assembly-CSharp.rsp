@@ -369,6 +369,7 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Script/BgController.cs"
 "Assets/Script/BgSpawn.cs"
+"Assets/Script/Bullet.cs"
 "Assets/Script/CannonController.cs"
 "Assets/Script/EnemyController.cs"
 "Assets/Script/EnemyType.cs"
