@@ -1017,7 +1017,7 @@ MonoBehaviour:
   isCannon4: 0
   isBattle: 0
   isMove: 0
-  shipHp: 0
+  shipHp: 10
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0

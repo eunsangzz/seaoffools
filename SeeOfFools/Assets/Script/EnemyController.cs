@@ -52,4 +52,13 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject); 
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Hit!");
+        if(collision.tag == "Bullet")
+        {
+            stat.curhp -= 1;
+        }
+    }
 }

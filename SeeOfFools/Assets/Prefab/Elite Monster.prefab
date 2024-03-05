@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 925781290044663848}
   - component: {fileID: -4791277444123963712}
+  - component: {fileID: 4999309335879672688}
   m_Layer: 0
   m_Name: Elite Monster
   m_TagString: Untagged
@@ -47,6 +48,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   type: 0
+--- !u!58 &4999309335879672688
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22956457908756623}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &6118874014088679283
 GameObject:
   m_ObjectHideFlags: 0
