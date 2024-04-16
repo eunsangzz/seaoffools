@@ -21,11 +21,13 @@ public class Move : MonoBehaviour
     void CannonRotate()
     {
         Vector3 mousePos = Input.mousePosition;
+        Vector3 thisPos = this.gameObject.transform.position;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
 
         if(GameManager.Instance.isCannon1 == true)
         {
-            MousePositionLimit(mousePos, -6, 0, 3.5f);
+            MousePositionLimit(mousePos, (thisPos.x - 2), (thisPos.x + 2), 2.0f);
         }
         if(GameManager.Instance.isCannon2 == true)
         {

@@ -15,9 +15,9 @@ public class CannonController : MonoBehaviour
     void Start()
     {
         Cannon[0].GetComponent<Move>().enabled = false;
-        Cannon[1].GetComponent<Move>().enabled = false;
+        /*Cannon[1].GetComponent<Move>().enabled = false;
         Cannon[2].GetComponent<Move>().enabled = false;
-        Cannon[3].GetComponent<Move>().enabled = false;
+        Cannon[3].GetComponent<Move>().enabled = false;*/
     }
 
     // Update is called once per frame
@@ -37,7 +37,7 @@ public class CannonController : MonoBehaviour
         {
             Cannon[0].GetComponent<Move>().enabled = false;
         }
-        if (GameManager.Instance.isCannon2 == true)
+        /*if (GameManager.Instance.isCannon2 == true)
         {
             Cannon[1].GetComponent<Move>().enabled = true;
             FireCannon(1);
@@ -65,7 +65,7 @@ public class CannonController : MonoBehaviour
         else
         {
             Cannon[3].GetComponent<Move>().enabled = false;
-        }
+        }*/
     }
 
 
@@ -76,9 +76,12 @@ public class CannonController : MonoBehaviour
         {
             Vector3 mouPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            GameObject bullet = Instantiate(bulletPre, bulletPos[barrelNum].transform.position, Quaternion.identity);
-            shoot = true;
-            StartCoroutine(ShootDelay());
+            if((Cannon[0].transform.position.x - 2) < mouPos.x && mouPos.x < (Cannon[0].transform.position.x + 2))
+            {
+                Instantiate(bulletPre, bulletPos[barrelNum].transform.position, Quaternion.identity);
+                shoot = true;
+                StartCoroutine(ShootDelay());
+            }
         }
     }
 

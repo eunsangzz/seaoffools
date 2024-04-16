@@ -22,18 +22,19 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        Died();
     }
 
     IEnumerator Behavior()
     {
-        StartCoroutine(Attack());
+        //StartCoroutine(Attack());
 
         yield return new WaitForSeconds(17f);
 
         Destroy(this.gameObject);
     }
 
-    IEnumerator Attack() //8초에 한번씩 공격 2번공격시 사라짐
+    /*IEnumerator Attack() //8초에 한번씩 공격 2번공격시 사라짐
     {
         //TODO 공격애니메이션
 
@@ -43,7 +44,7 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
 
-    }
+    }*/
     
     void Died()
     {
@@ -59,6 +60,8 @@ public class EnemyController : MonoBehaviour
         if(collision.tag == "Bullet")
         {
             stat.curhp -= 1;
+            Destroy(collision);
+            Debug.Log(stat.curhp);
         }
     }
 }

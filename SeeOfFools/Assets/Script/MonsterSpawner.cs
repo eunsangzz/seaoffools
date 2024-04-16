@@ -13,11 +13,12 @@ public class MonsterSpawner : MonoBehaviour
 
     void Start()
     {
- 
+        
     }
 
     void Update()
     {
+        //전투 시작
         if(GameManager.Instance.isBattle == true)
         {
             StartCoroutine(Spawn());
@@ -41,26 +42,24 @@ public class MonsterSpawner : MonoBehaviour
         int randY = Random.Range(0, 2);
         int randEnemy = Random.Range(0, 10);
 
+        //몬스터 타입 지정
         if (randEnemy >= 6) 
         { enemyType = 0; }
         if (randEnemy <= 8 && randEnemy >= 7)
         { enemyType = 1; }
         if (randEnemy >= 9)
         { enemyType = 2; }
-
-        if(randY == 0)
-        {
-            randPos = new Vector3(Random.Range(-2.5f, 2.5f), 4f);
-        }
-        else
-        {
-            randPos = new Vector3(Random.Range(-2.5f, 2.5f), -4f);
-        }
-
+        
+        //몬스터 스폰위치 설정
+        randPos = new Vector3(Random.Range(-2.5f, 2.5f), Random.Range(2f, 4f));
+        
+        //몬스터 생성 딜레이
         yield return new WaitForSeconds(8f);
-
+        
+        //몬스터 생성
         Instantiate(enemy[enemyType], randPos, Quaternion.identity);
 
+        //종료까지 반복
         StartCoroutine(Spawn());
     }
 }
