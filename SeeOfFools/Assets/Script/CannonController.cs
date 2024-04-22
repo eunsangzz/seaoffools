@@ -15,9 +15,6 @@ public class CannonController : MonoBehaviour
     void Start()
     {
         Cannon[0].GetComponent<Move>().enabled = false;
-        /*Cannon[1].GetComponent<Move>().enabled = false;
-        Cannon[2].GetComponent<Move>().enabled = false;
-        Cannon[3].GetComponent<Move>().enabled = false;*/
     }
 
     // Update is called once per frame

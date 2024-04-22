@@ -1,12 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     GameObject manager;
     Vector3 pos;
+
     public float speed = 5;
+
+    public Animator anim;
+
+    private SpriteRenderer playerSpriteRenderer;
+
+    void Start()
+    {
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
@@ -15,24 +23,42 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        if (GameManager.Instance.isCannon1 == false && GameManager.Instance.isCannon2 == false
-            && GameManager.Instance.isCannon3 == false && GameManager.Instance.isCannon4 == false)
+        if (GameManager.Instance.isCannon1 == false)
         {
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) && pos.x >= -2.8f)
+            {
+                pos.x -= speed * Time.deltaTime;
+                playerSpriteRenderer.flipX = true;
+                anim.SetBool("isWalking", true);
+            }
+            else if (Input.GetKey(KeyCode.D) && pos.x <= 2.8f)
+            {
+                pos.x += speed * Time.deltaTime;
+                playerSpriteRenderer.flipX = false;
+                anim.SetBool("isWalking", true);
+            }
+            else if (Input.GetKey(KeyCode.W) && pos.y <= 1.2f)
+            {
+                pos.y += speed * Time.deltaTime;
+                anim.SetBool("isWalking", true);
+            }
+            else if (Input.GetKey(KeyCode.S) && pos.y >= -3.0f)
+            {
+                pos.y -= speed * Time.deltaTime;
+                anim.SetBool("isWalking", true);
+            }
+            else anim.SetBool("isWalking", false);
+            transform.position = pos;
+        }
+        else if (GameManager.Instance.isCannon1 == true)
+        {
+            if (Input.GetKey(KeyCode.A) && pos.x >= -2.8f)
             {
                 pos.x -= speed * Time.deltaTime;
             }
-            if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D) && pos.x <= 2.8f)
             {
                 pos.x += speed * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.W))
-            {
-                pos.y += speed * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                pos.y -= speed * Time.deltaTime;
             }
             transform.position = pos;
         }
@@ -42,31 +68,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.name == "Cannon1")
         {
-            if(Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KeyCode.E))
             {
-                Debug.Log("Do");
                 GameManager.Instance.isCannon1 = true;
-            }
-        }
-        if (collision.gameObject.name == "Cannon2")
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                GameManager.Instance.isCannon2 = true;
-            }
-        }
-        if (collision.gameObject.name == "Cannon3")
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                GameManager.Instance.isCannon3 = true;
-            }
-        }
-        if (collision.gameObject.name == "Cannon4")
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                GameManager.Instance.isCannon4 = true;
             }
         }
     }

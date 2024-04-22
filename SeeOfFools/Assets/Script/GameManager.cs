@@ -64,9 +64,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             GameManager.Instance.isCannon1 = false;
-            GameManager.Instance.isCannon2 = false;
-            GameManager.Instance.isCannon3 = false;
-            GameManager.Instance.isCannon4 = false;
         }
     }
 

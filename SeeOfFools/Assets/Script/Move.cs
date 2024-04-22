@@ -6,6 +6,9 @@ public class Move : MonoBehaviour
 {
     private Camera mainCamera;
 
+    public float speed = 5;
+    Vector3 pos;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -15,6 +18,7 @@ public class Move : MonoBehaviour
     void Update()
     {
         CannonRotate();
+        cannonMove();
     }
 
     //마우스 방향으로 포신이 바라보도록
@@ -46,6 +50,19 @@ public class Move : MonoBehaviour
         //Vector2 dir = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
         //transform.up = dir;
 
+    }
+
+    void cannonMove()
+    {
+        if (Input.GetKey(KeyCode.A) && pos.x >= -2.8f)
+        {
+            pos.x -= speed * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.D) && pos.x <= 2.8f)
+        {
+            pos.x += speed * Time.deltaTime;
+        }
+        transform.position = pos;
     }
 
     void MousePositionLimit(Vector3 mousePos, float minX, float maxX, float Y)
