@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
     public EnemyType type;
     public Stat stat;
 
+    private float speed = 1.0f;
+
     void Awake()
     {
         stat = new Stat();
@@ -22,29 +24,25 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        Vector3 current = this.transform.position;
+
+        current.y -= speed * Time.deltaTime;
+        this.transform.position = current;
+
         Died();
     }
 
-    IEnumerator Behavior()
+    IEnumerator Behavior() //TODO 몬스터 공격루틴, 애니메이션, 사망이벤트(배에 몸박고 죽는다, 시간마다 공격후 배와 충돌시 죽는다.)
     {
-        //StartCoroutine(Attack());
-
-        yield return new WaitForSeconds(17f);
-
-        Destroy(this.gameObject);
-    }
-
-    /*IEnumerator Attack() //8초에 한번씩 공격 2번공격시 사라짐
-    {
-        //TODO 공격애니메이션
 
         yield return new WaitForSeconds(2f);
 
-        GameManager.Instance.shipHp -= stat.Damage;
+        GameManager.Instance.shipHp -= 2f;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6f);
 
-    }*/
+        Destroy(this.gameObject);
+    }
     
     void Died()
     {

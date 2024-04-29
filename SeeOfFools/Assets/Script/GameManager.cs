@@ -67,12 +67,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void battleStart()
+    public void battleStart() //지금은 버튼으로 작동
     {
         isBattle = true;
         isMove = true;
     }
-
-
 }
 

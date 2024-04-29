@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class Move : MonoBehaviour //대포 동작
 {
     private Camera mainCamera;
 
     public float speed = 5;
-    Vector3 pos;
 
     void Start()
     {
@@ -33,39 +32,30 @@ public class Move : MonoBehaviour
         {
             MousePositionLimit(mousePos, (thisPos.x - 2), (thisPos.x + 2), 2.0f);
         }
-        if(GameManager.Instance.isCannon2 == true)
-        {
-            MousePositionLimit(mousePos, -0, 6, 3.5f);
-        }
-        if(GameManager.Instance.isCannon3 == true)
-        {
-            MousePositionLimit(mousePos, -6, 0, -3.5f);
-        }
-        if(GameManager.Instance.isCannon4 == true)
-        {
-            MousePositionLimit(mousePos, -0, 6, -3.5f);
-        }
-
-
-        //Vector2 dir = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
-        //transform.up = dir;
 
     }
 
-    void cannonMove()
+    void cannonMove() //대포 좌우 이동
     {
-        if (Input.GetKey(KeyCode.A) && pos.x >= -2.8f)
+        if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -1.2f)
         {
-            pos.x -= speed * Time.deltaTime;
+            movement();
         }
-        else if (Input.GetKey(KeyCode.D) && pos.x <= 2.8f)
+        else if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 0.7f)
         {
-            pos.x += speed * Time.deltaTime;
+            movement();
         }
-        transform.position = pos;
     }
 
-    void MousePositionLimit(Vector3 mousePos, float minX, float maxX, float Y)
+    void movement() //이동관련
+    {
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+        Vector3 moveVelocity = new Vector3(x, y, 0) * speed * Time.deltaTime;
+        this.transform.position += moveVelocity;
+    }
+
+    void MousePositionLimit(Vector3 mousePos, float minX, float maxX, float Y) //마우스 이동제한
     {
         if(GameManager.Instance.isCannon1 == true || GameManager.Instance.isCannon2 == true)
         {

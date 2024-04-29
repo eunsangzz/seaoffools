@@ -51,10 +51,10 @@ public class MonsterSpawner : MonoBehaviour
         { enemyType = 2; }
         
         //몬스터 스폰위치 설정
-        randPos = new Vector3(Random.Range(-2.5f, 2.5f), Random.Range(2f, 4f));
+        randPos = new Vector3(Random.Range(-4.5f, 4.5f), Random.Range(2f, 4f));
         
         //몬스터 생성 딜레이
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(5f);
         
         //몬스터 생성
         Instantiate(enemy[enemyType], randPos, Quaternion.identity);

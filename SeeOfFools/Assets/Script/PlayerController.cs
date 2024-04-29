@@ -3,74 +3,89 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     GameObject manager;
-    Vector3 pos;
+    public Rigidbody2D rb;
 
-    public float speed = 5;
+    public float speed = 100;
 
     public Animator anim;
 
     private SpriteRenderer playerSpriteRenderer;
 
+    Vector3 pos;
+
     void Start()
     {
-        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();//스프라이트 관리
+        anim.SetBool("isWalking", false); //초기 애니메이션 설정
     }
 
     void Update()
     {
-        Move();
+        Move(); //동작함수
     }
 
     void Move()
     {
-        if (GameManager.Instance.isCannon1 == false)
-        {
-            if (Input.GetKey(KeyCode.A) && pos.x >= -2.8f)
+        if (GameManager.Instance.isCannon1 == false) //대포 비활성화시
+        { 
+            if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -1.2f) //키입력, 오브젝트 이동범위 제한
             {
-                pos.x -= speed * Time.deltaTime;
-                playerSpriteRenderer.flipX = true;
-                anim.SetBool("isWalking", true);
+                movement(); //동작 함수
+                playerSpriteRenderer.flipX = true; //스프라이트 반전
+                anim.SetBool("isWalking", true); //애니매이션 관리
             }
-            else if (Input.GetKey(KeyCode.D) && pos.x <= 2.8f)
+            else if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 0.7f) 
             {
-                pos.x += speed * Time.deltaTime;
+                movement();
                 playerSpriteRenderer.flipX = false;
                 anim.SetBool("isWalking", true);
             }
-            else if (Input.GetKey(KeyCode.W) && pos.y <= 1.2f)
+            else if (Input.GetKey(KeyCode.W) && this.transform.position.y <= -2.5f)
             {
-                pos.y += speed * Time.deltaTime;
+                movement();
                 anim.SetBool("isWalking", true);
             }
-            else if (Input.GetKey(KeyCode.S) && pos.y >= -3.0f)
+            else if (Input.GetKey(KeyCode.S) && this.transform.position.y >= -3.0f)
             {
-                pos.y -= speed * Time.deltaTime;
+                movement();
+                anim.SetBool("isWalking", true);
+            }
+            else anim.SetBool("isWalking", false); //키입력 없을때 애니메이션 종료
+        }
+        else //대포 활성화시 좌우 이동만 활성화
+        {
+            if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -1.2f)
+            {
+                movement();
+                playerSpriteRenderer.flipX = true;
+                anim.SetBool("isWalking", true);
+            }
+            else if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 0.7f)
+            {
+                movement();
+                playerSpriteRenderer.flipX = false;
                 anim.SetBool("isWalking", true);
             }
             else anim.SetBool("isWalking", false);
-            transform.position = pos;
         }
-        else if (GameManager.Instance.isCannon1 == true)
-        {
-            if (Input.GetKey(KeyCode.A) && pos.x >= -2.8f)
-            {
-                pos.x -= speed * Time.deltaTime;
-            }
-            else if (Input.GetKey(KeyCode.D) && pos.x <= 2.8f)
-            {
-                pos.x += speed * Time.deltaTime;
-            }
-            transform.position = pos;
-        }
+    }
+
+    void movement() //이동 관리 함수
+    { 
+        float x = Input.GetAxisRaw("Horizontal");//키보드 좌우
+        float y = Input.GetAxisRaw("Vertical");//키보드 상하
+        Vector3 moveVelocity = new Vector3(x, y, 0) * speed * Time.deltaTime; // 입력받은 상하좌우로 이동
+        this.transform.position += moveVelocity; //오브젝트 이동
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Cannon1")
+        if (collision.gameObject.name == "Cannon1") //대포 활성화 부분과 충돌시
         {
-            if (Input.GetKey(KeyCode.E))
+            Debug.Log("hit!");
+            if (Input.GetKey(KeyCode.E)) 
             {
-                GameManager.Instance.isCannon1 = true;
+                GameManager.Instance.isCannon1 = true;//대포 활성화
             }
         }
     }

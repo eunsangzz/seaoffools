@@ -23,7 +23,7 @@ public class CannonController : MonoBehaviour
         ActiveCannon();
     }
 
-    void ActiveCannon()
+    void ActiveCannon() //대포 작동
     {
         if (GameManager.Instance.isCannon1 == true)
         {
@@ -34,55 +34,27 @@ public class CannonController : MonoBehaviour
         {
             Cannon[0].GetComponent<Move>().enabled = false;
         }
-        /*if (GameManager.Instance.isCannon2 == true)
-        {
-            Cannon[1].GetComponent<Move>().enabled = true;
-            FireCannon(1);
-        }
-        else
-        {
-            Cannon[1].GetComponent<Move>().enabled = false;
-        }
-
-        if (GameManager.Instance.isCannon3 == true)
-        {
-            Cannon[2].GetComponent<Move>().enabled = true;
-            FireCannon(2);
-        }
-        else
-        {
-            Cannon[2].GetComponent<Move>().enabled = false;
-        }
-
-        if (GameManager.Instance.isCannon4 == true)
-        {
-            Cannon[3].GetComponent<Move>().enabled = true;
-            FireCannon(3);
-        }
-        else
-        {
-            Cannon[3].GetComponent<Move>().enabled = false;
-        }*/
+        
     }
 
 
 
-    void FireCannon(int barrelNum)
+    void FireCannon(int barrelNum) //대포 발사
     {
         if (Input.GetMouseButtonDown(0) && shoot == false)
         {
             Vector3 mouPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if((Cannon[0].transform.position.x - 2) < mouPos.x && mouPos.x < (Cannon[0].transform.position.x + 2))
+            if((Cannon[0].transform.position.x - 2) < mouPos.x && mouPos.x < (Cannon[0].transform.position.x + 2))// 대포발사 각도제한
             {
-                Instantiate(bulletPre, bulletPos[barrelNum].transform.position, Quaternion.identity);
+                Instantiate(bulletPre, bulletPos[barrelNum].transform.position, Quaternion.identity); //총알 생성
                 shoot = true;
                 StartCoroutine(ShootDelay());
             }
         }
     }
 
-    IEnumerator ShootDelay()
+    IEnumerator ShootDelay() //재장전
     {
         yield return new WaitForSeconds(2f);
         shoot = false;
