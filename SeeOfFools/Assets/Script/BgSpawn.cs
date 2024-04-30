@@ -15,22 +15,19 @@ public class BgSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.Instance.isBattle == true)
+        if (GameManager.Instance.isBattle == true)
         {
             StartCoroutine(bgSpawn());
+            GameManager.Instance.isBattle = false;
         }
     }
 
     IEnumerator bgSpawn()
     {
-        Debug.Log("1");
-        int rand = Random.Range(0, 3);
-        Instantiate(bg[rand], BgSpawner.position, BgSpawner.rotation);
-
         while(true)
         {
             int rand1 = Random.Range(0, 3);
-            yield return new WaitForSeconds(38f);
+            yield return new WaitForSeconds(40f);
             Instantiate(bg[rand1], BgSpawner.position, BgSpawner.rotation);
         }
     }
