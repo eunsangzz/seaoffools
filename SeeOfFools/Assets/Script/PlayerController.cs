@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
 
     private SpriteRenderer playerSpriteRenderer;
 
-    Vector3 pos;
-
     void Start()
     {
         playerSpriteRenderer = GetComponent<SpriteRenderer>();//스프라이트 관리
@@ -22,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Move(); //동작함수
+        Move();
     }
 
     void Move()
@@ -73,7 +71,7 @@ public class PlayerController : MonoBehaviour
                 else anim.SetBool("isWalking", false);
             }
         }
-        else
+        else if (scene.name == "SavePoint")
         {
             if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -6.5f) //키입력, 오브젝트 이동범위 제한
             {
@@ -120,5 +118,14 @@ public class PlayerController : MonoBehaviour
                 GameManager.Instance.isCannon1 = true;//대포 활성화
             }
         }
+        if(collision.gameObject.name == "Brooks")
+        {
+            
+        }
+        if(collision.gameObject.name == "Naiting")
+        {
+
+        }
+
     }
 }

@@ -57,7 +57,7 @@ public class Move : MonoBehaviour //대포 동작
 
     void MousePositionLimit(Vector3 mousePos, float minX, float maxX, float Y) //마우스 이동제한
     {
-        if(GameManager.Instance.isCannon1 == true || GameManager.Instance.isCannon2 == true)
+        if(GameManager.Instance.isCannon1 == true)
         {
             if (mousePos.x >= minX && mousePos.x <= maxX && mousePos.y >= Y)
             {
