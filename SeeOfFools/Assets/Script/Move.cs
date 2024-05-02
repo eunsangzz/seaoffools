@@ -30,7 +30,7 @@ public class Move : MonoBehaviour //대포 동작
 
         if(GameManager.Instance.isCannon1 == true)
         {
-            MousePositionLimit(mousePos, (thisPos.x - 2), (thisPos.x + 2), 2.0f);
+            MousePositionLimit(mousePos, (thisPos.x - 2), (thisPos.x + 2), -1.0f);
         }
 
     }
@@ -60,15 +60,6 @@ public class Move : MonoBehaviour //대포 동작
         if(GameManager.Instance.isCannon1 == true || GameManager.Instance.isCannon2 == true)
         {
             if (mousePos.x >= minX && mousePos.x <= maxX && mousePos.y >= Y)
-            {
-                Vector2 dir = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
-                transform.up = dir;
-            }
-        }
-
-        if (GameManager.Instance.isCannon3 == true || GameManager.Instance.isCannon4 == true)
-        {
-            if (mousePos.x >= minX && mousePos.x <= maxX && mousePos.y <= Y)
             {
                 Vector2 dir = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
                 transform.up = dir;

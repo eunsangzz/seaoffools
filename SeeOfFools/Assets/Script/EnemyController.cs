@@ -8,7 +8,9 @@ public class EnemyController : MonoBehaviour
     public EnemyType type;
     public Stat stat;
 
-    private float speed = 1.0f;
+    private float speed = 0.1f;
+
+    SpriteRenderer render;
 
     void Awake()
     {
@@ -20,6 +22,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         StartCoroutine(Behavior());
+        render = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
@@ -39,7 +42,7 @@ public class EnemyController : MonoBehaviour
 
         GameManager.Instance.shipHp -= 2f;
 
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(10f);
 
         Destroy(this.gameObject);
     }
@@ -54,12 +57,21 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hit!");
         if(collision.tag == "Bullet")
         {
+            StartCoroutine(changeColor());
             stat.curhp -= 1;
-            Destroy(collision);
-            Debug.Log(stat.curhp);
         }
+    }
+
+    IEnumerator changeColor()
+    {
+        render.color = new Color(1, 0, 0, 1);
+
+        yield return new WaitForSeconds(0.5f);
+
+        render.color = new Color(1, 1, 1, 1);
+
+        StopCoroutine(changeColor());
     }
 }

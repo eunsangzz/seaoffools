@@ -20,5 +20,15 @@ public class Bullet : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(gameObject.transform.position, mouPos * 2, 0.01f);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
 }
  

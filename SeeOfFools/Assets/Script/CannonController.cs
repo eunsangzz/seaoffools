@@ -45,7 +45,7 @@ public class CannonController : MonoBehaviour
         {
             Vector3 mouPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if((Cannon[0].transform.position.x - 2) < mouPos.x && mouPos.x < (Cannon[0].transform.position.x + 2))// 대포발사 각도제한
+            if((Cannon[0].transform.position.x - 3) < mouPos.x && mouPos.x < (Cannon[0].transform.position.x + 3))// 대포발사 각도제한
             {
                 Instantiate(bulletPre, bulletPos[barrelNum].transform.position, Quaternion.identity); //총알 생성
                 shoot = true;
@@ -56,7 +56,7 @@ public class CannonController : MonoBehaviour
 
     IEnumerator ShootDelay() //재장전
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         shoot = false;
     }
 }

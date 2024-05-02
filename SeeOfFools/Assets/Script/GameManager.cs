@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Scene scene = SceneManager.GetActiveScene();
+
         shipHp = 100f;
         isCannon1 = false;
         isCannon2 = false;
@@ -49,8 +54,13 @@ public class GameManager : MonoBehaviour
         isCannon4 = false;
         isBattle = false;
         isMove = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.Confined;
+
+        if(scene.name == "MainScene")
+        {
+            StartCoroutine(Battle());
+        }
     }
 
     void Update()
@@ -72,5 +82,14 @@ public class GameManager : MonoBehaviour
         isBattle = true;
         isMove = true;
     }
+
+    IEnumerator Battle()
+    {
+        yield return new WaitForSeconds(2f);
+        isBattle = true;
+        isMove = true;
+        StopCoroutine(Battle());
+    }
+
 }
 

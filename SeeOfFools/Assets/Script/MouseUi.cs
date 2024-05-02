@@ -15,8 +15,7 @@ public class MouseUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.Instance.isCannon1 == true || GameManager.Instance.isCannon2 == true
-            || GameManager.Instance.isCannon3 == true || GameManager.Instance.isCannon4 == true)
+        if(GameManager.Instance.isCannon1 == true)
         {
             Init_Cursor();
         }
