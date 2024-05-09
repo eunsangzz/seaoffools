@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     public bool isCannon1;
     public bool isBattle;
     public bool isMove;
+    public bool isUp;
+    public bool isStory;
 
     public float shipHp;
 
@@ -49,6 +51,8 @@ public class GameManager : MonoBehaviour
         isCannon1 = false;
         isBattle = false;
         isMove = false;
+        isUp = false;
+        isStory = false;
 
         if(scene.name == "MainScene")
         {

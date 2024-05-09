@@ -120,11 +120,17 @@ public class PlayerController : MonoBehaviour
         }
         if(collision.gameObject.name == "Brooks")
         {
-            
+            if(Input.GetKey(KeyCode.E))
+            {
+                GameManager.Instance.isUp = true;
+            }
         }
         if(collision.gameObject.name == "Naiting")
         {
-
+            if (Input.GetKey(KeyCode.E))
+            {
+                GameManager.Instance.isStory = true;
+            }
         }
 
     }
