@@ -374,6 +374,7 @@
 "Assets/Script/EnemyController.cs"
 "Assets/Script/EnemyType.cs"
 "Assets/Script/GameManager.cs"
+"Assets/Script/MainUi.cs"
 "Assets/Script/MonsterSpawner.cs"
 "Assets/Script/MouseUi.cs"
 "Assets/Script/Move.cs"

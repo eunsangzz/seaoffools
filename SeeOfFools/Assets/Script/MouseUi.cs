@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MouseUi : MonoBehaviour
 {
     public RectTransform transform_cursor;
+    public GameObject aim;
 
     void Start()
     {
@@ -15,21 +16,20 @@ public class MouseUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.Instance.isCannon1 == true)
+        if (GameManager.Instance.isCannon1 == true)
         {
-            Init_Cursor();
+            aim.SetActive(true);
+            Cursor.visible = false;
         }
+        else
+        {
+            aim.SetActive(false);
+            Cursor.visible = true;
+        }
+
         Update_MousePosition();
     }
 
-    private void Init_Cursor()
-    {
-        Cursor.visible = false;
-        transform_cursor.pivot = Vector2.up;
-
-        if (transform_cursor.GetComponent<Graphic>())
-            transform_cursor.GetComponent<Graphic>().raycastTarget = false;
-    }
 
     private void Update_MousePosition()
     {

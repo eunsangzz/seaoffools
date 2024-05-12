@@ -13,7 +13,8 @@ public class MonsterSpawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(Spawn());
+        Debug.Log("1");
+;        StartCoroutine(Spawn());
     }
 
     void Update()

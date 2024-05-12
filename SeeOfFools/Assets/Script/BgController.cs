@@ -5,8 +5,6 @@ using UnityEngine;
 public class BgController : MonoBehaviour
 {
    
-
-    // Update is called once per frame
     void Update()
     {
         if(GameManager.Instance.isMove == true)

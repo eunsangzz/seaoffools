@@ -132,6 +132,18 @@ public class PlayerController : MonoBehaviour
                 GameManager.Instance.isStory = true;
             }
         }
+        if (collision.gameObject.name == "StartBattle")
+        {
+            GameManager.Instance.isStart = true;
+        }
 
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "StartBattle")
+        {
+            GameManager.Instance.isStart = false;
+        }
     }
 }

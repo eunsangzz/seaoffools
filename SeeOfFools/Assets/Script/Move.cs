@@ -37,14 +37,18 @@ public class Move : MonoBehaviour //대포 동작
 
     void cannonMove() //대포 좌우 이동
     {
-        if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -1.2f)
+        if (GameManager.Instance.isCannon1 == true)
         {
-            movement();
-        }
+            if(Input.GetKey(KeyCode.A) && this.transform.position.x >= -1.2f)
+        {
+                movement();
+            }
         else if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 0.7f)
-        {
-            movement();
+            {
+                movement();
+            }
         }
+            
     }
 
     void movement() //이동관련

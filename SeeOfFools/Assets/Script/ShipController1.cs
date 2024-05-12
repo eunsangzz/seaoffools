@@ -18,13 +18,6 @@ public class ShipController1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.Instance.shipHp >= 70f)
-        {
-            shipSpriteRenderer.sprite = sprite1;
-        }
-        if(GameManager.Instance.shipHp <= 70f)
-        {
-            shipSpriteRenderer.sprite = sprite2;
-        }
+        
     }
 }

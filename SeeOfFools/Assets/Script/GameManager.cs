@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public bool isStart;
 
     public bool isCannon1;
     public bool isBattle;
@@ -41,18 +42,25 @@ public class GameManager : MonoBehaviour
     public bool isStory;
 
     public float shipHp;
+    public float MaxHp;
 
 
     void Start()
     {
-        Scene scene = SceneManager.GetActiveScene();
-
-        shipHp = 100f;
+        MaxHp = 10f;
+        shipHp = 10f;
         isCannon1 = false;
         isBattle = false;
         isMove = false;
         isUp = false;
         isStory = false;
+        isStart = false;
+    }
+
+    void Update()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        InactiveCannon();
 
         if(scene.name == "MainScene")
         {
@@ -60,10 +68,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        InactiveCannon();
-    }
 
 
     void InactiveCannon()
@@ -77,8 +81,8 @@ public class GameManager : MonoBehaviour
     IEnumerator Battle()
     {
         yield return new WaitForSeconds(2f);
-        isBattle = true;
-        isMove = true;
+        GameManager.Instance.isBattle = true;
+        GameManager.Instance.isMove = true;
         StopCoroutine(Battle());
     }
 

@@ -12,6 +12,8 @@ public class EnemyController : MonoBehaviour
 
     SpriteRenderer render;
 
+    private bool dead = false;
+
     void Awake()
     {
         stat = new Stat();
@@ -38,11 +40,11 @@ public class EnemyController : MonoBehaviour
     IEnumerator Behavior() //TODO 몬스터 공격루틴, 애니메이션, 사망이벤트(배에 몸박고 죽는다, 시간마다 공격후 배와 충돌시 죽는다.)
     {
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
 
         GameManager.Instance.shipHp -= 2f;
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(15f);
 
         Destroy(this.gameObject);
     }
@@ -51,7 +53,11 @@ public class EnemyController : MonoBehaviour
     {
         if(stat.curhp <= 0)
         {
-            Destroy(gameObject); 
+            dead = true;
+        }
+        if(dead == true)
+        {
+            StartCoroutine(Dead());
         }
     }
 
@@ -59,7 +65,10 @@ public class EnemyController : MonoBehaviour
     {
         if(collision.tag == "Bullet")
         {
-            StartCoroutine(changeColor());
+            if(stat.curhp > 1.1f)
+            {
+                StartCoroutine(changeColor());
+            }
             stat.curhp -= 1;
         }
     }
@@ -73,5 +82,13 @@ public class EnemyController : MonoBehaviour
         render.color = new Color(1, 1, 1, 1);
 
         StopCoroutine(changeColor());
+    }
+
+    IEnumerator Dead()
+    {
+        dead = false;
+        anim.SetBool("isDead", true);
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }
