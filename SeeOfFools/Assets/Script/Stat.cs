@@ -9,19 +9,23 @@ public class Stat
     public int maxHp { get; set; }
     public int curhp { get; set; }
     public int Damage { get; set; }
+    public int Gold { get; set; }
+    public int Score { get; set; }
 
     public Stat()
     {
 
     }
 
-    public Stat(EnemyType type,string name, int maxHp, int Damage)
+    public Stat(EnemyType type,string name, int maxHp, int Damage, int Gold, int Score)
     {
         this.type = type;
         this.name = name;
         this.maxHp = maxHp;
         curhp = maxHp;
         this.Damage = Damage;
+        this.Gold = Gold;
+        this.Score = Score;
     }
 
     public Stat SetEnemyStat(EnemyType type)
@@ -31,13 +35,13 @@ public class Stat
         switch(type)
         {
             case EnemyType.Elite:
-                stat = new Stat(type, "Elite", 3, 5);
+                stat = new Stat(type, "Elite", 3, 5, 5, 3);
                 break;
             case EnemyType.Midium:
-                stat = new Stat(type, "Midium", 2, 3);
+                stat = new Stat(type, "Midium", 2, 3, 3, 2);
                 break;
             case EnemyType.Small:
-                stat = new Stat(type, "Small", 1, 1);
+                stat = new Stat(type, "Small", 1, 1, 1, 1);
                 break;
         }
         return stat;

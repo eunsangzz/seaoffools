@@ -89,6 +89,8 @@ public class EnemyController : MonoBehaviour
         dead = false;
         anim.SetBool("isDead", true);
         yield return new WaitForSeconds(1f);
+        GameManager.Instance.Score += stat.Score;
+        GameManager.Instance.Gold += stat.Gold;
         Destroy(gameObject);
     }
 }

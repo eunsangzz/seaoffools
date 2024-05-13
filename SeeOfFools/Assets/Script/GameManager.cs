@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     public float shipHp;
     public float MaxHp;
 
+    public int Gold;
+    public int Score;
 
     void Start()
     {
@@ -55,6 +57,8 @@ public class GameManager : MonoBehaviour
         isUp = false;
         isStory = false;
         isStart = false;
+        Score = 0;
+        Gold = 0;
     }
 
     void Update()
@@ -74,17 +78,26 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            GameManager.Instance.isCannon1 = false;
+            isCannon1 = false;
         }
     }
 
     IEnumerator Battle()
     {
         yield return new WaitForSeconds(2f);
-        GameManager.Instance.isBattle = true;
-        GameManager.Instance.isMove = true;
+        isBattle = true;
+        isMove = true;
+        StartCoroutine(GameStart()); 
         StopCoroutine(Battle());
     }
 
+    IEnumerator GameStart()
+    {
+        yield return new WaitForSeconds(60f);
+        isBattle = false;
+        isMove = false;
+        isCannon1 = false;
+        SceneManager.LoadScene("Market");
+    }
 }
 
