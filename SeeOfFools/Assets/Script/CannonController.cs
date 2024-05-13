@@ -11,11 +11,7 @@ public class CannonController : MonoBehaviour
     private float shotTime;
 
     private bool shoot = false;
-
-    void Start()
-    {
-        Cannon[0].GetComponent<Move>().enabled = false;
-    }
+    
 
     // Update is called once per frame
     void Update()

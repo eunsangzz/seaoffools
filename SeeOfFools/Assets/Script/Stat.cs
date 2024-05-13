@@ -6,8 +6,8 @@ public class Stat
 {
     public EnemyType type { get; }
     public string name { get; set; }
-    public int maxHp { get; set; }
-    public int curhp { get; set; }
+    public float maxHp { get; set; }
+    public float curhp { get; set; }
     public int Damage { get; set; }
     public int Gold { get; set; }
     public int Score { get; set; }

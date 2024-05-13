@@ -8,11 +8,13 @@ public class EnemyController : MonoBehaviour
     public EnemyType type;
     public Stat stat;
 
-    private float speed = 0.1f;
+    private float speed = 0.3f;
 
     SpriteRenderer render;
 
     private bool dead = false;
+
+    public GameObject hitEffect;
 
     void Awake()
     {
@@ -40,11 +42,11 @@ public class EnemyController : MonoBehaviour
     IEnumerator Behavior() //TODO 몬스터 공격루틴, 애니메이션, 사망이벤트(배에 몸박고 죽는다, 시간마다 공격후 배와 충돌시 죽는다.)
     {
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6f);
 
-        GameManager.Instance.shipHp -= 2f;
+        GameManager.Instance.shipHp -= (stat.Damage / GameManager.Instance.Defense) + (stat.Damage % GameManager.Instance.Defense);
 
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(13f);
 
         Destroy(this.gameObject);
     }
@@ -69,16 +71,17 @@ public class EnemyController : MonoBehaviour
             {
                 StartCoroutine(changeColor());
             }
-            stat.curhp -= 1;
+            stat.curhp -= GameManager.Instance.Damage;
         }
     }
 
     IEnumerator changeColor()
     {
+        hitEffect.SetActive(true);
         render.color = new Color(1, 0, 0, 1);
 
         yield return new WaitForSeconds(0.5f);
-
+        hitEffect.SetActive(false);
         render.color = new Color(1, 1, 1, 1);
 
         StopCoroutine(changeColor());
@@ -87,8 +90,11 @@ public class EnemyController : MonoBehaviour
     IEnumerator Dead()
     {
         dead = false;
+        hitEffect.SetActive(true);
         anim.SetBool("isDead", true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+        hitEffect.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
         GameManager.Instance.Score += stat.Score;
         GameManager.Instance.Gold += stat.Gold;
         Destroy(gameObject);

@@ -49,6 +49,9 @@ TagManager:
   - name: Cannon
     uniqueID: 4200210537
     locked: 0
+  - name: Cannon2
+    uniqueID: 3183342507
+    locked: 0
   - name: Player
     uniqueID: 802267475
     locked: 0

@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class SavePointUiManager : MonoBehaviour
@@ -14,6 +12,7 @@ public class SavePointUiManager : MonoBehaviour
     public GameObject smithUi;
     public GameObject upgradeUi;
     public GameObject storyUi;
+    public GameObject startUi;
     public GameObject startBtn;
 
     public GameObject jackImg;
@@ -27,6 +26,8 @@ public class SavePointUiManager : MonoBehaviour
     public TextMeshProUGUI naitingNextText;
 
     public TextMeshProUGUI StartText;
+    public TextMeshProUGUI StartNeztText;
+    public TextMeshProUGUI StartNameText;
 
 
 
@@ -34,27 +35,40 @@ public class SavePointUiManager : MonoBehaviour
     int naitingTextNum;
     int startTextNum;
 
+    private void Awake()
+    {
+        
+    }
 
     void Start()
     {
+        Scene scene = SceneManager.GetActiveScene();
         brooksTextNum = 0;
         naitingTextNum = 0;
         startTextNum = 0;
+        if (scene.name == "SavePoint" && GameManager.Instance.first == true)
+        {
+            player.SetActive(false);
+            naiting.SetActive(false);
+            brooks.SetActive(false);
+            startUi.SetActive(true);
+            GameManager.Instance.first = false;
+        }
     }
 
     void Update()
     {
-        if(GameManager.Instance.isUp == true)
+        if (GameManager.Instance.isUp == true)
         {
             brooksInteraction();
         }
-        if(GameManager.Instance.isStory == true)
+        if (GameManager.Instance.isStory == true)
         {
             naitingInteraction();
         }
 
         Scene scene = SceneManager.GetActiveScene();
-        if(scene.name =="SavePoint")
+        if (scene.name == "SavePoint")
         {
             if (GameManager.Instance.isStart == true)
             {
@@ -108,17 +122,18 @@ public class SavePointUiManager : MonoBehaviour
     {
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;
 
-        if(clickObject.name == "Attack")
+        if (clickObject.name == "Attack")
         {
-
+            GameManager.Instance.Damage = GameManager.Instance.Damage + (GameManager.Instance.Damage * 0.2f);
         }
-        else if(clickObject.name == "Health")
+        else if (clickObject.name == "Health")
         {
-
+            GameManager.Instance.MaxHp += GameManager.Instance.MaxHp + (GameManager.Instance.MaxHp * 0.5f);
+            GameManager.Instance.shipHp = GameManager.Instance.MaxHp;
         }
-        else if(clickObject.name == "Defense")
+        else if (clickObject.name == "Defense")
         {
-
+            GameManager.Instance.Defense =  GameManager.Instance.Defense + (GameManager.Instance.Defense * 0.3f);
         }
     }
 
@@ -132,19 +147,36 @@ public class SavePointUiManager : MonoBehaviour
         if (naitingTextNum == 0)
         {
             naitingTextNum += 1;
-            return;
         }
-        if (naitingTextNum == 1)
+        else if (naitingTextNum == 1)
         {
             naitingTextNum += 1;
-            return;
         }
-        if (naitingTextNum == 2)
+        else if (naitingTextNum == 2)
         {
             naitingTextNum += 1;
-            return;
         }
-        if (naitingTextNum == 3) StartCoroutine(naitingInter());
+        else if (naitingTextNum == 3) StartCoroutine(naitingInter());
+    }
+
+    public void startUiBtn()
+    {
+        if (startTextNum == 0)
+        {
+            startTextNum += 1;
+        }
+        else if (startTextNum == 1)
+        {
+            startTextNum += 1;
+        }
+        else if (startTextNum == 2)
+        {
+            startTextNum += 1;
+        }
+        else if (startTextNum == 3)
+        {
+            StartCoroutine(startInter());
+        }
     }
 
     public void StartBtn()
@@ -171,21 +203,49 @@ public class SavePointUiManager : MonoBehaviour
         {
             naitingText.text = "Gonna try saving the rest the crew";
             naitingNextText.text = "Exit";
-            
+
         }
         if (naitingTextNum == 4) naitingText.text = "....";
 
-        if (startTextNum == 0) StartText.text = "Brooks! is the ship ready to go?";
-        if (startTextNum == 1) StartText.text = "Not as it used to be but it works";
-        if (startTextNum == 2) StartText.text = "We still need lot more part to go far out in the sea";
-        if (startTextNum == 3) StartText.text = "Why don't you take some from your head?";
-        if (startTextNum == 4) StartText.text = "Anyway, It's time to sail once again!";
+        if (startTextNum == 0)
+        {
+            StartText.text = "Brooks! is the ship ready to go?";
+            StartNameText.text = "Jack";
+            jackImg.SetActive(true);
+            brooksImg.SetActive(false);
+            naitingImg.SetActive(false);
+        }
+        if (startTextNum == 1)
+        {
+            StartText.text = "Not as it used to be but it works";
+            StartNameText.text = "Brooks";
+            jackImg.SetActive(false);
+            brooksImg.SetActive(true);
+            naitingImg.SetActive(false);
+        }
+        if (startTextNum == 2)
+        {
+            StartText.text = "We still need lot more part to go far out in the sea";
+        }
+        if (startTextNum == 3)
+        {
+            StartText.text = "Why don't you take some from your head?";
+            StartNameText.text = "Naiting";
+            jackImg.SetActive(false);
+            brooksImg.SetActive(false);
+            naitingImg.SetActive(true);
+            StartNeztText.text = "Exit";
+        }
+        if (startTextNum == 4)
+        {
+            StartText.text = "Anyway, It's time to sail once again!";
+            StartNameText.text = "Jack";
+        }
     }
 
     IEnumerator endInter()
     {
         brooksTextNum = 1;
-        Debug.Log("Change");
         yield return new WaitForSeconds(1f);
         player.SetActive(true);
         brooks.SetActive(true);
@@ -211,5 +271,19 @@ public class SavePointUiManager : MonoBehaviour
 
         naitingTextNum = 0;
         StopCoroutine(naitingInter());
+    }
+
+    IEnumerator startInter()
+    {
+        startTextNum += 1;
+        jackImg.SetActive(true);
+        brooksImg.SetActive(false);
+        naitingImg.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        player.SetActive(true);
+        naiting.SetActive(true);
+        brooks.SetActive(true);
+        startUi.SetActive(false);
+        StopCoroutine(startInter());
     }
 }
