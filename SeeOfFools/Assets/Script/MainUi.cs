@@ -14,13 +14,37 @@ public class MainUi : MonoBehaviour
     public TextMeshProUGUI scoreText;
 
     public Image disable;
-    private float limiteTime = 60f;
-    private float limiteTime_max = 60f;
+    private float limiteTime;
+    private float limiteTime_max;
 
     public GameObject pauseText;
 
+    public GameObject bgImg1;
+    public GameObject bgImg2;
+    public GameObject bgImg3;
+
     private void Start()
     {
+        if(GameManager.Instance.Round == 1)
+        {
+            bgImg1.SetActive(true);
+            bgImg2.SetActive(false);
+            bgImg3.SetActive(false);
+        }
+        if (GameManager.Instance.Round == 2)
+        {
+            bgImg1.SetActive(false);
+            bgImg2.SetActive(true);
+            bgImg3.SetActive(false);
+        }
+        if (GameManager.Instance.Round == 3)
+        {
+            bgImg1.SetActive(false);
+            bgImg2.SetActive(false);
+            bgImg3.SetActive(true);
+        }
+        limiteTime_max = GameManager.Instance.gameTime;
+        limiteTime = limiteTime_max;
         StartCoroutine(Timer());
     }
 

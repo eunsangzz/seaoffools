@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - Enemy
+  - Key
   layers:
   - Default
   - TransparentFX
@@ -43,6 +44,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Wave
+    uniqueID: 600382267
+    locked: 0
   - name: ShipBody
     uniqueID: 1978911899
     locked: 0
@@ -54,7 +58,4 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 802267475
-    locked: 0
-  - name: New Layer 4
-    uniqueID: 600382267
     locked: 0

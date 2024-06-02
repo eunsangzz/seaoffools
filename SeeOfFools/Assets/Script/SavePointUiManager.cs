@@ -29,6 +29,16 @@ public class SavePointUiManager : MonoBehaviour
     public TextMeshProUGUI StartNeztText;
     public TextMeshProUGUI StartNameText;
 
+    public TextMeshProUGUI AttackLvText;
+    public TextMeshProUGUI HealthLvText;
+    public TextMeshProUGUI SpeedLvText;
+
+    public TextMeshProUGUI AttackGoldText;
+    public TextMeshProUGUI HealthGoldText;
+    public TextMeshProUGUI SpeedGoldText;
+
+    public TextMeshProUGUI goldText;
+
 
 
     int brooksTextNum;
@@ -37,7 +47,7 @@ public class SavePointUiManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
 
     void Start()
@@ -124,17 +134,36 @@ public class SavePointUiManager : MonoBehaviour
 
         if (clickObject.name == "Attack")
         {
-            GameManager.Instance.Damage = GameManager.Instance.Damage + (GameManager.Instance.Damage * 0.2f);
+            if (GameManager.Instance.Gold >= GameManager.Instance.UpgradeGold1)
+            {
+                GameManager.Instance.Gold = GameManager.Instance.Gold - GameManager.Instance.UpgradeGold1;
+                GameManager.Instance.Damage += 1;
+                GameManager.Instance.UpgradeGold1 += 50;
+                GameManager.Instance.UpgradeLv1 += 1;
+            }
         }
         else if (clickObject.name == "Health")
         {
-            GameManager.Instance.MaxHp += GameManager.Instance.MaxHp + (GameManager.Instance.MaxHp * 0.5f);
-            GameManager.Instance.shipHp = GameManager.Instance.MaxHp;
+            if (GameManager.Instance.Gold >= GameManager.Instance.UpgradeGold2)
+            {
+                GameManager.Instance.Gold = GameManager.Instance.Gold - GameManager.Instance.UpgradeGold2;
+                GameManager.Instance.MaxHp += 10;
+                GameManager.Instance.shipHp = GameManager.Instance.MaxHp;
+                GameManager.Instance.UpgradeGold2 += 50;
+                GameManager.Instance.UpgradeLv2 += 1;
+            }
         }
-        else if (clickObject.name == "Defense")
+        else if (clickObject.name == "Speed")
         {
-            GameManager.Instance.Defense =  GameManager.Instance.Defense + (GameManager.Instance.Defense * 0.3f);
+            if (GameManager.Instance.Gold >= GameManager.Instance.UpgradeGold3)
+            {
+                GameManager.Instance.Gold = GameManager.Instance.Gold - GameManager.Instance.UpgradeGold3;
+                GameManager.Instance.gameTime -= 5f;
+                GameManager.Instance.UpgradeGold3 += 50;
+                GameManager.Instance.UpgradeLv3 += 1;
+            }
         }
+
     }
 
     public void brooksBtn()
@@ -241,6 +270,16 @@ public class SavePointUiManager : MonoBehaviour
             StartText.text = "Anyway, It's time to sail once again!";
             StartNameText.text = "Jack";
         }
+
+        AttackLvText.text = "Lv." + GameManager.Instance.UpgradeLv1;
+        HealthLvText.text = "Lv." + GameManager.Instance.UpgradeLv2;
+        SpeedLvText.text = "Lv." + GameManager.Instance.UpgradeLv3;
+
+        AttackGoldText.text = "" + GameManager.Instance.UpgradeGold1;
+        HealthGoldText.text =  "" + GameManager.Instance.UpgradeGold2;
+        SpeedGoldText.text =  "" + GameManager.Instance.UpgradeGold3;
+
+        goldText.text = GameManager.Instance.Gold + " G";
     }
 
     IEnumerator endInter()

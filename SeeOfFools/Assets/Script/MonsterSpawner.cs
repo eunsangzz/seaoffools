@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,17 +32,35 @@ public class MonsterSpawner : MonoBehaviour
     }
 
     IEnumerator Spawn()
-    {
+    { 
         int randY = Random.Range(0, 2);
         int randEnemy = Random.Range(0, 100);
 
-        //몬스터 타입 지정
-        if (randEnemy <= 70) 
-        { enemyType = 0; }
-        if (randEnemy <= 90 && randEnemy >= 71)
-        { enemyType = 1; }
-        if (randEnemy >= 91)
-        { enemyType = 2; }
+        if(GameManager.Instance.Round == 1)
+        {
+            if (randEnemy <= 80)
+            { enemyType = 0; }
+            if (randEnemy >= 81)
+            { enemyType = 1; }
+        }
+        if(GameManager.Instance.Round == 2)
+        {
+            if (randEnemy <= 60)
+            { enemyType = 0; }
+            if (randEnemy <= 94 && randEnemy >= 61)
+            { enemyType = 1; }
+            if (randEnemy >= 95)
+            { enemyType = 2; }
+        }
+        if(GameManager.Instance.Round == 3)
+        {
+            if (randEnemy <= 70)
+            { enemyType = 0; }
+            if (randEnemy <= 90 && randEnemy >= 71)
+            { enemyType = 1; }
+            if (randEnemy >= 91)
+            { enemyType = 2; }
+        }
         
         //몬스터 스폰위치 설정
         randPos = new Vector3(Random.Range(-3f, 2f), Random.Range(2f, 4f));

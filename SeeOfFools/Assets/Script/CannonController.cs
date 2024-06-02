@@ -52,7 +52,7 @@ public class CannonController : MonoBehaviour
 
     IEnumerator ShootDelay() //¿Á¿Â¿¸
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(GameManager.Instance.AttackSpeed);
         shoot = false;
     }
 }

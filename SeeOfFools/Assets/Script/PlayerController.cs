@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
                     movement();
                     anim.SetBool("isWalking", true);
                 }
-                else if (Input.GetKey(KeyCode.S) && this.transform.position.y >= -3.0f)
+                else if (Input.GetKey(KeyCode.S) && this.transform.position.y >= -3.6f)
                 {
                     movement();
                     anim.SetBool("isWalking", true);
@@ -135,6 +135,13 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.name == "StartBattle")
         {
             GameManager.Instance.isStart = true;
+        }
+        if(collision.gameObject.name == "Key" && GameManager.Instance.isSlow == true)
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                GameManager.Instance.isRewind = true;
+            }
         }
 
     }

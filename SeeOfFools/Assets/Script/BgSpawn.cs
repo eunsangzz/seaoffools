@@ -18,9 +18,19 @@ public class BgSpawn : MonoBehaviour
 
     IEnumerator bgSpawn()
     {
-        int rand1 = Random.Range(0, 3);
         yield return new WaitForSeconds(5f);
-        Instantiate(bg[rand1], BgSpawner.position, BgSpawner.rotation);
+        if (GameManager.Instance.Round == 1)
+        {
+            Instantiate(bg[0], BgSpawner.position, BgSpawner.rotation);
+        }
+        if (GameManager.Instance.Round == 1)
+        {
+            Instantiate(bg[1], BgSpawner.position, BgSpawner.rotation);
+        }
+        if (GameManager.Instance.Round == 1)
+        {
+            Instantiate(bg[2], BgSpawner.position, BgSpawner.rotation);
+        }
         StopCoroutine(bgSpawn());
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     Vector3 mouPos;
-    public float speed;
     public float lifeTime;
 
     // Start is called before the first frame update
@@ -18,7 +17,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(gameObject.transform.position, mouPos * 2, 0.01f);
+        transform.position = Vector3.MoveTowards(gameObject.transform.position, mouPos * 2, 0.1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
