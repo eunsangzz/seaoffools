@@ -988,6 +988,10 @@ MonoBehaviour:
   isSlow: 0
   isRewind: 0
   isPlay: 0
+  isHok: 0
+  isWorm: 0
+  isJuice1: 0
+  isJuice2: 0
   shipHp: 10
   MaxHp: 0
   Gold: 0
@@ -1632,9 +1636,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cannon:
   - {fileID: 985889963}
-  bulletPos:
-  - {fileID: 985889963}
-  bulletPre: {fileID: 3659616426861315564, guid: dee4d179f4f7f1047842f6c93ab553b8, type: 3}
+  bulletPos: {fileID: 985889963}
+  bulletPre:
+  - {fileID: 3659616426861315564, guid: dee4d179f4f7f1047842f6c93ab553b8, type: 3}
+  - {fileID: 3659616426861315564, guid: dee4d179f4f7f1047842f6c93ab553b8, type: 3}
+  - {fileID: 3659616426861315564, guid: dee4d179f4f7f1047842f6c93ab553b8, type: 3}
+  - {fileID: 3659616426861315564, guid: dee4d179f4f7f1047842f6c93ab553b8, type: 3}
   reroadTime: 0
 --- !u!58 &1402943041
 CircleCollider2D:

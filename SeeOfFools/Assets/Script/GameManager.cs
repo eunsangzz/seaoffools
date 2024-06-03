@@ -44,6 +44,11 @@ public class GameManager : MonoBehaviour
     public bool isRewind;
     public bool isPlay;
 
+    public bool isHok;
+    public bool isWorm;
+    public bool isJuice1;
+    public bool isJuice2;
+
     public float shipHp;
     public float MaxHp;
 
@@ -99,6 +104,11 @@ public class GameManager : MonoBehaviour
         first = true;
         isSlow = false;
         isRewind = false;
+
+        isHok = false;
+        isWorm = false;
+        isJuice2 = false;
+        isJuice1 = false;
     }
 
     void Update()
@@ -151,6 +161,10 @@ public class GameManager : MonoBehaviour
             Damage = 4.0f;
             Defense = 1.0f;
             AttackSpeed = 1.5f;
+            isHok = false;
+            isWorm = false;
+            isJuice2 = false;
+            isJuice1 = false;
             Round = 1;
         }
     }
