@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
 
 
     public bool isStart;
+    public bool isLose;
+    public bool isWin;
 
     public bool isCannon1;
     public bool isBattle;
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
 
     private int num;
     public bool first;
+    public bool tuto;
 
     void Start()
     {
@@ -84,7 +87,7 @@ public class GameManager : MonoBehaviour
 
         num = 0;
         Round = 1;
-        gameTime = 60f;
+        gameTime = 10f;
 
         UpgradeGold1 = 100;
         UpgradeGold2 = 100;
@@ -93,6 +96,8 @@ public class GameManager : MonoBehaviour
         UpgradeLv2 = 1;
         UpgradeLv3 = 1;
 
+        isWin = false;
+        isLose = false;
 
         isPlay = false;
         isCannon1 = false;
@@ -109,6 +114,8 @@ public class GameManager : MonoBehaviour
         isWorm = false;
         isJuice2 = false;
         isJuice1 = false;
+
+        tuto = true;
     }
 
     void Update()
@@ -120,6 +127,7 @@ public class GameManager : MonoBehaviour
         if (scene.name == "MainScene" && num == 0) 
         {
             num = 1;
+            Debug.Log("Round");
             StartCoroutine(Battle());
         }
         if(scene.name == "SavePoint")
@@ -156,7 +164,8 @@ public class GameManager : MonoBehaviour
         if(shipHp <= 0.0f)
         {
             StopCoroutine(GameStart());
-            SceneManager.LoadScene("SavePoint");
+            //SceneManager.LoadScene("SavePoint");
+            isLose = true;
             shipHp = MaxHp;
             Damage = 4.0f;
             Defense = 1.0f;
@@ -172,18 +181,16 @@ public class GameManager : MonoBehaviour
     IEnumerator Battle()
     {
         yield return new WaitForSeconds(2f);
-        isBattle = true;
-        isMove = true;
         StartCoroutine(GameStart()); 
         StopCoroutine(Battle());
     }
 
     IEnumerator GameStart()
     {
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(gameTime);
         if(Round <= 2 && shipHp >= 0.0f)
         {
-            SceneManager.LoadScene("Market");
+            isWin = true;
             num = 0;
             StopCoroutine(GameStart());
         }

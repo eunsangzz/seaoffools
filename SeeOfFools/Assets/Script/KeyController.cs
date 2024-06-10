@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class KeyController : MonoBehaviour
 {
+    public Animator anim;
+
     float time;
 
     SpriteRenderer rend;
     // Start is called before the first frame update
     void Start()
     {
-        rend = GetComponent<SpriteRenderer>();
         StartCoroutine(timer());
+        anim = GetComponent<Animator>();
         time = 0;
     }
 
@@ -21,20 +23,14 @@ public class KeyController : MonoBehaviour
         if(time == 20)
         {
             GameManager.Instance.isSlow = true;
+            anim.SetBool("isSpin", true);
         }
         if(GameManager.Instance.isSlow == true && GameManager.Instance.isRewind == true)
         {
             time = 0;
             GameManager.Instance.isSlow = false;
             GameManager.Instance.isRewind = false;
-        }
-        if (time % 2 == 0 && GameManager.Instance.isSlow == false)
-        {
-            rend.flipX = false;
-        }
-        else if (time % 2 == 1 && GameManager.Instance.isSlow == false)
-        {
-            rend.flipX = true;
+            anim.SetBool("isSpin", false);
         }
     }
 

@@ -210,8 +210,16 @@ public class SavePointUiManager : MonoBehaviour
 
     public void StartBtn()
     {
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
-        GameManager.Instance.isStart = false;
+        if (GameManager.Instance.tuto == true)
+        {
+            GameManager.Instance.tuto = false;
+            SceneManager.LoadScene("Tuto");
+        }
+        else
+        {
+            GameManager.Instance.isStart = false;
+            SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        }
     }
 
     private void LateUpdate()

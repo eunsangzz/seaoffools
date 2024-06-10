@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BgController : MonoBehaviour
 {
-   
     void Update()
     {
         if(GameManager.Instance.isMove == true)

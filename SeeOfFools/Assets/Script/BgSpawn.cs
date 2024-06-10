@@ -13,6 +13,25 @@ public class BgSpawn : MonoBehaviour
         {
             StartCoroutine(bgSpawn());
         }
+
+        if (GameManager.Instance.Round == 1)
+        {
+            bg[0].SetActive(true);
+            bg[1].SetActive(false);
+            bg[2].SetActive(false);
+        }
+        if (GameManager.Instance.Round == 2)
+        {
+            bg[0].SetActive(false);
+            bg[1].SetActive(true);
+            bg[2].SetActive(false);
+        }
+        if (GameManager.Instance.Round == 3)
+        {
+            bg[0].SetActive(false);
+            bg[1].SetActive(false);
+            bg[2].SetActive(true);
+        }
     }
 
 
@@ -23,11 +42,11 @@ public class BgSpawn : MonoBehaviour
         {
             Instantiate(bg[0], BgSpawner.position, BgSpawner.rotation);
         }
-        if (GameManager.Instance.Round == 1)
+        if (GameManager.Instance.Round == 2)
         {
             Instantiate(bg[1], BgSpawner.position, BgSpawner.rotation);
         }
-        if (GameManager.Instance.Round == 1)
+        if (GameManager.Instance.Round == 3)
         {
             Instantiate(bg[2], BgSpawner.position, BgSpawner.rotation);
         }

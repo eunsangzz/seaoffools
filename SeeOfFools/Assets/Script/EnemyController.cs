@@ -44,7 +44,10 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSeconds(6f);
 
-        GameManager.Instance.shipHp -= (stat.Damage / GameManager.Instance.Defense) + (stat.Damage % GameManager.Instance.Defense);
+        if(GameManager.Instance.isWin != true || GameManager.Instance.isLose != true)
+        {
+            GameManager.Instance.shipHp -= (stat.Damage / GameManager.Instance.Defense) + (stat.Damage % GameManager.Instance.Defense);
+        }
 
         yield return new WaitForSeconds(13f);
 

@@ -23,8 +23,14 @@ public class MainUi : MonoBehaviour
     public GameObject bgImg2;
     public GameObject bgImg3;
 
+    public Image Panel;
+
+    float time = 0f;
+    float F_time = 1f;
+
     private void Start()
     {
+        StartCoroutine(FadeIn());
         if(GameManager.Instance.Round == 1)
         {
             bgImg1.SetActive(true);
@@ -43,15 +49,27 @@ public class MainUi : MonoBehaviour
             bgImg2.SetActive(false);
             bgImg3.SetActive(true);
         }
+
         limiteTime_max = GameManager.Instance.gameTime;
         limiteTime = limiteTime_max;
+
         StartCoroutine(Timer());
     }
 
-    // Update is called once per frame
     void Update()
     {
         HpBarSlider.value = GameManager.Instance.shipHp / GameManager.Instance.MaxHp;
+
+        if(GameManager.Instance.isLose == true)
+        {
+            GameManager.Instance.isLose = false;
+            StartCoroutine(Lose());
+        }
+        if(GameManager.Instance.isWin == true)
+        {
+            GameManager.Instance.isWin = false;
+            StartCoroutine(Win());
+        }
     }
 
     public void Pause()
@@ -84,4 +102,66 @@ public class MainUi : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
+
+    IEnumerator Win()
+    {
+        Panel.gameObject.SetActive(true);
+        Color alpha = Panel.color;
+        while(alpha.a <1f)
+        {
+            time += Time.deltaTime/F_time;
+            alpha.a = Mathf.Lerp(0, 1, time);
+            Panel.color = alpha;
+            yield return null;
+        }
+
+        time = 0;
+
+        if (GameManager.Instance.Round == 1 || GameManager.Instance.Round == 2)
+        {
+            SceneManager.LoadScene("WinScene");
+        }
+        if(GameManager.Instance.Round == 3)
+        {
+            SceneManager.LoadScene("VictoryScene");
+        }
+    }
+
+    IEnumerator Lose()
+    {
+        Panel.gameObject.SetActive(true);
+        Color alpha = Panel.color;
+        while (alpha.a < 1f)
+        {
+            time += Time.deltaTime/F_time;
+            alpha.a = Mathf.Lerp(0, 1, time);
+            Panel.color = alpha;
+            yield return null;
+        }
+        time = 0;
+        SceneManager.LoadScene("LoseScene");
+    }
+
+    IEnumerator FadeIn()
+    {
+        Color alpha = Panel.color;
+        while (alpha.a > 0f)
+        {
+            time += Time.deltaTime;
+            alpha.a = Mathf.Lerp(1, 0, time);
+            Panel.color = alpha;
+            yield return null;
+        }
+
+        time = 0;
+        Panel.gameObject.SetActive(false);
+
+        //yield return new WaitForSeconds(2f);
+
+        GameManager.Instance.isMove = true;
+        GameManager.Instance.isBattle = true;
+
+        StopCoroutine(FadeIn());
+    }
+
 }
