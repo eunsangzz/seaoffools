@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -77,9 +76,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         MaxHp = 200f;
-        shipHp = 200f;
+        shipHp = MaxHp;
         Score = 0;
-        Gold = 200;
+        Gold = 100;
 
         Damage = 4.0f;
         Defense = 1.0f;
@@ -87,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         num = 0;
         Round = 1;
-        gameTime = 10f;
+        gameTime = 60f;
 
         UpgradeGold1 = 100;
         UpgradeGold2 = 100;
@@ -124,18 +123,16 @@ public class GameManager : MonoBehaviour
         InactiveCannon();
         Lose();
 
-        if (scene.name == "MainScene" && num == 0) 
+        if (scene.name == "MainScene" && num == 0)
         {
             num = 1;
-            Debug.Log("Round");
-            StartCoroutine(Battle());
         }
-        if(scene.name == "SavePoint")
+        if (scene.name == "SavePoint")
         {
             isMove = true;
             Cursor.visible = true;
         }
-        if(scene.name == "Market")
+        if (scene.name == "Market")
         {
             isBattle = false;
             isMove = false;
@@ -161,10 +158,9 @@ public class GameManager : MonoBehaviour
 
     void Lose()
     {
-        if(shipHp <= 0.0f)
+        if (shipHp <= 0.0f)
         {
-            StopCoroutine(GameStart());
-            //SceneManager.LoadScene("SavePoint");
+            SceneManager.LoadScene("LoseScene");
             isLose = true;
             shipHp = MaxHp;
             Damage = 4.0f;
@@ -175,28 +171,6 @@ public class GameManager : MonoBehaviour
             isJuice2 = false;
             isJuice1 = false;
             Round = 1;
-        }
-    }
-
-    IEnumerator Battle()
-    {
-        yield return new WaitForSeconds(2f);
-        StartCoroutine(GameStart()); 
-        StopCoroutine(Battle());
-    }
-
-    IEnumerator GameStart()
-    {
-        yield return new WaitForSeconds(gameTime);
-        if(Round <= 2 && shipHp >= 0.0f)
-        {
-            isWin = true;
-            num = 0;
-            StopCoroutine(GameStart());
-        }
-        else if(Round >= 3)
-        {
-            Application.Quit();
         }
     }
 }

@@ -108,5 +108,9 @@ public class LoadingScene : MonoBehaviour
         {
             SceneManager.LoadScene("SavePoint");
         }
+        else if (scene.name =="LoadingScene")
+        {
+            SceneManager.LoadScene("MainScene");
+        }
     }
 }

@@ -24,6 +24,6 @@ public class TutoManager : MonoBehaviour
     void Next()
     {
         GameManager.Instance.isStart = false;
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("LoadingScene", LoadSceneMode.Single);
     }
 }

@@ -54,8 +54,7 @@ public class Move : MonoBehaviour //대포 동작
     void movement() //이동관련
     {
         float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Vector3 moveVelocity = new Vector3(x, y, 0) * speed * Time.deltaTime;
+        Vector3 moveVelocity = new Vector3(x, 0, 0) * speed * Time.deltaTime;
         this.transform.position += moveVelocity;
     }
 

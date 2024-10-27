@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
-{ 
+{
     public Animator anim;
     public EnemyType type;
     public Stat stat;
@@ -16,6 +15,8 @@ public class EnemyController : MonoBehaviour
 
     public GameObject hitEffect;
 
+    public AudioClip[] EnemySound;
+
     void Awake()
     {
         stat = new Stat();
@@ -25,6 +26,8 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+        AudioClip audio = EnemySound[0];
+        GetComponent<AudioSource>().PlayOneShot(audio, 0.8f);
         StartCoroutine(Behavior());
         render = GetComponentInChildren<SpriteRenderer>();
     }
@@ -44,7 +47,7 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSeconds(6f);
 
-        if(GameManager.Instance.isWin != true || GameManager.Instance.isLose != true)
+        if (GameManager.Instance.isWin != true || GameManager.Instance.isLose != true)
         {
             GameManager.Instance.shipHp -= (stat.Damage / GameManager.Instance.Defense) + (stat.Damage % GameManager.Instance.Defense);
         }
@@ -53,14 +56,14 @@ public class EnemyController : MonoBehaviour
 
         Destroy(this.gameObject);
     }
-    
+
     void Died()
     {
-        if(stat.curhp <= 0)
+        if (stat.curhp <= 0)
         {
             dead = true;
         }
-        if(dead == true)
+        if (dead == true)
         {
             StartCoroutine(Dead());
         }
@@ -68,9 +71,12 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Bullet")
+        if (collision.tag == "Bullet")
         {
-            if(stat.curhp > 1.1f)
+            AudioClip audio = EnemySound[1];
+            GetComponent<AudioSource>().PlayOneShot(audio, 0.8f);
+
+            if (stat.curhp > 1.1f)
             {
                 StartCoroutine(changeColor());
             }

@@ -59,6 +59,7 @@ public class CannonController : MonoBehaviour
                 {
                     Instantiate(bulletPre[3], bulletPos.transform.position, Quaternion.identity); //ÃÑ¾Ë »ý¼º
                 }
+                GetComponent<AudioSource>().Play();
                 shoot = true;
                 StartCoroutine(ShootDelay());
             }

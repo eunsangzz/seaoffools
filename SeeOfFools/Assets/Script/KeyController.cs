@@ -28,6 +28,7 @@ public class KeyController : MonoBehaviour
         if(GameManager.Instance.isSlow == true && GameManager.Instance.isRewind == true)
         {
             time = 0;
+            GetComponent<AudioSource>().Play();
             GameManager.Instance.isSlow = false;
             GameManager.Instance.isRewind = false;
             anim.SetBool("isSpin", false);

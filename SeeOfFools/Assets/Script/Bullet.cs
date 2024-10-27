@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(gameObject.transform.position, mouPos * 2, 0.01f);
+        transform.position = Vector3.MoveTowards(gameObject.transform.position, mouPos * 2, 0.1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

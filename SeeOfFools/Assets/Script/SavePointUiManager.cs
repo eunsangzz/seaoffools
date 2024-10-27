@@ -39,7 +39,9 @@ public class SavePointUiManager : MonoBehaviour
 
     public TextMeshProUGUI goldText;
 
+    public AudioClip[] Btn;
 
+    public GameObject[] needGold;
 
     int brooksTextNum;
     int naitingTextNum;
@@ -114,6 +116,8 @@ public class SavePointUiManager : MonoBehaviour
 
     public void ExitBtn() //todo 대화 종료버튼 누를시 브룩은 대사 한번하고 종료
     {
+        AudioClip audio = Btn[0];
+        GetComponent<AudioSource>().PlayOneShot(audio, 0.8f);
         brooks.SetActive(true);
         naiting.SetActive(true);
         player.SetActive(true);
@@ -124,6 +128,8 @@ public class SavePointUiManager : MonoBehaviour
 
     public void upgradeUiBtn()
     {
+        AudioClip audio = Btn[0];
+        GetComponent<AudioSource>().PlayOneShot(audio, 0.8f);
         smithUi.SetActive(false);
         upgradeUi.SetActive(true);
     }
@@ -131,7 +137,8 @@ public class SavePointUiManager : MonoBehaviour
     public void upgradeBtn()
     {
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;
-
+        AudioClip audio = Btn[0];
+        GetComponent<AudioSource>().PlayOneShot(audio, 0.8f);
         if (clickObject.name == "Attack")
         {
             if (GameManager.Instance.Gold >= GameManager.Instance.UpgradeGold1)
@@ -140,6 +147,11 @@ public class SavePointUiManager : MonoBehaviour
                 GameManager.Instance.Damage += 1;
                 GameManager.Instance.UpgradeGold1 += 50;
                 GameManager.Instance.UpgradeLv1 += 1;
+            }
+            else
+            {
+                needGold[0].SetActive(true);
+                StartCoroutine(NeedGold(0));
             }
         }
         else if (clickObject.name == "Health")
@@ -152,6 +164,11 @@ public class SavePointUiManager : MonoBehaviour
                 GameManager.Instance.UpgradeGold2 += 50;
                 GameManager.Instance.UpgradeLv2 += 1;
             }
+            else
+            {
+                needGold[1].SetActive(true);
+                StartCoroutine(NeedGold(1));
+            }
         }
         else if (clickObject.name == "Speed")
         {
@@ -162,17 +179,26 @@ public class SavePointUiManager : MonoBehaviour
                 GameManager.Instance.UpgradeGold3 += 50;
                 GameManager.Instance.UpgradeLv3 += 1;
             }
+            else
+            {
+                needGold[2].SetActive(true);
+                StartCoroutine(NeedGold(2));
+            }
         }
 
     }
 
     public void brooksBtn()
     {
+        AudioClip audio = Btn[0];
+        GetComponent<AudioSource>().PlayOneShot(audio, 0.8f);
         StartCoroutine(endInter());
     }
 
     public void naitingBtn()
     {
+        AudioClip audio = Btn[0];
+        GetComponent<AudioSource>().PlayOneShot(audio, 0.8f);
         if (naitingTextNum == 0)
         {
             naitingTextNum += 1;
@@ -190,6 +216,8 @@ public class SavePointUiManager : MonoBehaviour
 
     public void startUiBtn()
     {
+        AudioClip audio = Btn[0];
+        GetComponent<AudioSource>().PlayOneShot(audio, 0.8f);
         if (startTextNum == 0)
         {
             startTextNum += 1;
@@ -210,6 +238,8 @@ public class SavePointUiManager : MonoBehaviour
 
     public void StartBtn()
     {
+        AudioClip audio = Btn[0];
+        GetComponent<AudioSource>().PlayOneShot(audio, 0.8f);
         if (GameManager.Instance.tuto == true)
         {
             GameManager.Instance.tuto = false;
@@ -332,5 +362,11 @@ public class SavePointUiManager : MonoBehaviour
         brooks.SetActive(true);
         startUi.SetActive(false);
         StopCoroutine(startInter());
+    }
+
+    IEnumerator NeedGold(int i)
+    {
+        yield return new WaitForSeconds(2f);
+        needGold[i].SetActive(false);
     }
 }

@@ -32,24 +32,24 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -1.2f) //키입력, 오브젝트 이동범위 제한
                 {
-                    movement(); //동작 함수
+                    movement1(); //동작 함수
                     playerSpriteRenderer.flipX = true; //스프라이트 반전
                     anim.SetBool("isWalking", true); //애니매이션 관리
                 }
                 else if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 0.7f)
                 {
-                    movement();
+                    movement1();
                     playerSpriteRenderer.flipX = false;
                     anim.SetBool("isWalking", true);
                 }
                 else if (Input.GetKey(KeyCode.W) && this.transform.position.y <= -2.5f)
                 {
-                    movement();
+                    movement1();
                     anim.SetBool("isWalking", true);
                 }
                 else if (Input.GetKey(KeyCode.S) && this.transform.position.y >= -3.6f)
                 {
-                    movement();
+                    movement1();
                     anim.SetBool("isWalking", true);
                 }
                 else anim.SetBool("isWalking", false); //키입력 없을때 애니메이션 종료
@@ -58,13 +58,13 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -1.2f)
                 {
-                    movement();
+                    movement2();
                     playerSpriteRenderer.flipX = true;
                     anim.SetBool("isWalking", true);
                 }
                 else if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 0.7f)
                 {
-                    movement();
+                    movement2();
                     playerSpriteRenderer.flipX = false;
                     anim.SetBool("isWalking", true);
                 }
@@ -75,24 +75,24 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A) && this.transform.position.x >= -6.5f) //키입력, 오브젝트 이동범위 제한
             {
-                movement(); //동작 함수
+                movement1(); //동작 함수
                 playerSpriteRenderer.flipX = true; //스프라이트 반전
                 anim.SetBool("isWalking", true); //애니매이션 관리
             }
             else if (Input.GetKey(KeyCode.D) && this.transform.position.x <= 6.5f)
             {
-                movement();
+                movement1();
                 playerSpriteRenderer.flipX = false;
                 anim.SetBool("isWalking", true);
             }
             else if (Input.GetKey(KeyCode.W) && this.transform.position.y <= 3.0f)
             {
-                movement();
+                movement1();
                 anim.SetBool("isWalking", true);
             }
             else if (Input.GetKey(KeyCode.S) && this.transform.position.y >= -3.0f)
             {
-                movement();
+                movement1();
                 anim.SetBool("isWalking", true);
             }
             else anim.SetBool("isWalking", false); //키입력 없을때 애니메이션 종료
@@ -101,12 +101,19 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void movement() //이동 관리 함수
+    void movement1() //이동 관리 함수
     {
         float x = Input.GetAxisRaw("Horizontal");//키보드 좌우
         float y = Input.GetAxisRaw("Vertical");//키보드 상하
         Vector3 moveVelocity = new Vector3(x, y, 0) * speed * Time.deltaTime; // 입력받은 상하좌우로 이동
         this.transform.position += moveVelocity; //오브젝트 이동
+    }
+
+    void movement2()
+    {
+        float x = Input.GetAxisRaw("Horizontal");
+        Vector3 moveVelocity = new Vector3(x, 0, 0) * speed * Time.deltaTime;
+        this.transform.position += moveVelocity;
     }
 
     void OnTriggerStay2D(Collider2D collision)

@@ -28,6 +28,7 @@ public class MainUi : MonoBehaviour
     float time = 0f;
     float F_time = 1f;
 
+    int num = 0;
     private void Start()
     {
         StartCoroutine(FadeIn());
@@ -49,7 +50,6 @@ public class MainUi : MonoBehaviour
             bgImg2.SetActive(false);
             bgImg3.SetActive(true);
         }
-
         limiteTime_max = GameManager.Instance.gameTime;
         limiteTime = limiteTime_max;
 
@@ -60,14 +60,14 @@ public class MainUi : MonoBehaviour
     {
         HpBarSlider.value = GameManager.Instance.shipHp / GameManager.Instance.MaxHp;
 
-        if(GameManager.Instance.isLose == true)
+        if(GameManager.Instance.shipHp <= 0.0f)
         {
             GameManager.Instance.isLose = false;
             StartCoroutine(Lose());
         }
-        if(GameManager.Instance.isWin == true)
+        if (limiteTime <= 0 && num == 0 && GameManager.Instance.shipHp >= 0.0f)
         {
-            GameManager.Instance.isWin = false;
+            num = 1;
             StartCoroutine(Win());
         }
     }
@@ -107,7 +107,8 @@ public class MainUi : MonoBehaviour
     {
         Panel.gameObject.SetActive(true);
         Color alpha = Panel.color;
-        while(alpha.a <1f)
+
+        while (alpha.a < 1f)
         {
             time += Time.deltaTime/F_time;
             alpha.a = Mathf.Lerp(0, 1, time);
@@ -116,10 +117,14 @@ public class MainUi : MonoBehaviour
         }
 
         time = 0;
+        yield return new WaitForSeconds(1f);
+
+        num = 0;
 
         if (GameManager.Instance.Round == 1 || GameManager.Instance.Round == 2)
         {
             SceneManager.LoadScene("WinScene");
+            
         }
         if(GameManager.Instance.Round == 3)
         {
@@ -131,6 +136,9 @@ public class MainUi : MonoBehaviour
     {
         Panel.gameObject.SetActive(true);
         Color alpha = Panel.color;
+
+        yield return new WaitForSeconds(0.3f);
+
         while (alpha.a < 1f)
         {
             time += Time.deltaTime/F_time;
@@ -138,7 +146,9 @@ public class MainUi : MonoBehaviour
             Panel.color = alpha;
             yield return null;
         }
+
         time = 0;
+
         SceneManager.LoadScene("LoseScene");
     }
 
@@ -160,6 +170,7 @@ public class MainUi : MonoBehaviour
 
         GameManager.Instance.isMove = true;
         GameManager.Instance.isBattle = true;
+        
 
         StopCoroutine(FadeIn());
     }

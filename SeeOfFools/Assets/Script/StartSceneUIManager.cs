@@ -8,6 +8,7 @@ public class StartSceneUIManager : MonoBehaviour
 {
     public void PlayBtn()
     {
+        GetComponent<AudioSource>().Play();
         GameManager.Instance.isPlay = true;
         StartCoroutine(startGame());
     }
@@ -17,9 +18,14 @@ public class StartSceneUIManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void CreditBtn()
+    {
+        SceneManager.LoadScene("CreditScene");
+    }
+
     IEnumerator startGame()
     {
-        yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene("SavePoint");
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("IntroScene");
     }
 }
